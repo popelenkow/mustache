@@ -4,7 +4,6 @@
 #include <fstream>
 #include <iostream>
 
-using namespace std;
 std::ifstream i_open(const std::string &str)
 {
 	std::ifstream input(str);
