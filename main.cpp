@@ -7,10 +7,10 @@
 std::ifstream i_open(const std::string &str)
 {
 	std::ifstream input(str);
-	if ( !input )
+	if (!input)
 	{
 		std::string buf = "Not opened \"" + str + '"';
-		throw buf;
+		throw std::runtime_error(buf);
 	}
 	return input;
 }
@@ -18,34 +18,30 @@ std::ifstream i_open(const std::string &str)
 std::ofstream o_open(const std::string &str)
 {
 	std::ofstream input(str);
-	if ( !input )
+	if (!input)
 	{
 		std::string buf = "Not opened \"" + str + '"';
-		throw buf;
+		 throw std::runtime_error(buf);
 	}
 	return input;
 }
 
-int main ()
+int main()
 {
 	try
 	{
 		std::ifstream &in_database = i_open("database.txt");
 		std::ifstream &in_text = i_open("input.txt");
 		std::ofstream &out_text = o_open("output.txt");
-		
 		Mustache mustache;
 		mustache.go(in_database, in_text, out_text);
-		
 		in_database.close();
 		in_text.close();
 		out_text.close();
 	}
-	catch (std::string err)
+	catch (std::runtime_error err)
 	{
-		std::cerr << err << std::endl;
+		std::cerr << err.what() << std::endl;
 	}
-
-	
 	return 0;
 }
